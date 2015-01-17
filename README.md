@@ -1,2 +1,2 @@
 # Calculator
-A simple calculator created in csharp
+A simple calculator for my first blog post @ www.onedoesnotsimplyprogram.com
