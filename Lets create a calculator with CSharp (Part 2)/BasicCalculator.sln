@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicCalculator", "BasicCalculator\BasicCalculator.csproj", "{7E511512-0EDE-4E1D-A0C9-3800914E6766}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E511512-0EDE-4E1D-A0C9-3800914E6766}.Debug|x86.ActiveCfg = Debug|x86
+		{7E511512-0EDE-4E1D-A0C9-3800914E6766}.Debug|x86.Build.0 = Debug|x86
+		{7E511512-0EDE-4E1D-A0C9-3800914E6766}.Release|x86.ActiveCfg = Release|x86
+		{7E511512-0EDE-4E1D-A0C9-3800914E6766}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
