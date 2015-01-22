@@ -136,63 +136,66 @@ namespace BasicCalculator
 
         private void buttonEquals_Click(object sender, EventArgs e)
         {
+            operand2 = Double.Parse(userInput);
+            txtBoxCalculationDisplay.Text = string.Empty;
+            performArithmeticOperation(mathOperator, operand1, operand2);
+            userInput = calculatedResult.ToString();
 
+            ////Old code - what the hell was I thinking?  Why am I trying to parse everything out of 1 large string and reconstruct as a math problem...too many variations in potential errors
+            //string equation = txtBoxCalculationDisplay.Text;
 
-            //Old code - what the hell was I thinking?  Why am I trying to parse everything out of 1 large string and reconstruct as a math problem...too many variations in potential errors
-            string equation = txtBoxCalculationDisplay.Text;
+            ////if string contains an operator, proceed with finding two values to be calculated
+            //if (equation.Contains("+"))
+            //{
+            //    userInput = equation.Substring(equation.IndexOf("+"), 1);
+            //    operand1 = Convert.ToDouble(equation.Substring(0, equation.IndexOf("+"))); //stores all numbers before operator
+            //    operand2 = Convert.ToDouble(equation.Substring(equation.IndexOf("+") + 1, equation.Length - (equation.IndexOf("+") + 1)));  //stores all numbers after operator
+            //    performArithmeticOperation(userInput, operand1, operand2);
+            //    return;
+            //}
+            //else if (equation.Contains("-"))
+            //{
+            //    userInput = equation.Substring(equation.IndexOf("-"), 1);
+            //    //determine if minus is before number (indicating a negative value), or used as an operator in the equation...only computes if minus is being used as an operator
+            //    if (equation.IndexOf("-") != 0)
+            //    {
+            //        operand1 = Convert.ToDouble(equation.Substring(0, equation.IndexOf("-"))); //stores all numbers before operator
+            //        operand2 = Convert.ToDouble(equation.Substring(equation.IndexOf("-") + 1, equation.Length - (equation.IndexOf("-") + 1)));  //stores all numbers after operator
+            //        performArithmeticOperation(userInput, operand1, operand2);
+            //        return;
+            //    }
 
-            //if string contains an operator, proceed with finding two values to be calculated
-            if (equation.Contains("+"))
-            {
-                userInput = equation.Substring(equation.IndexOf("+"), 1);
-                operand1 = Convert.ToDouble(equation.Substring(0, equation.IndexOf("+"))); //stores all numbers before operator
-                operand2 = Convert.ToDouble(equation.Substring(equation.IndexOf("+") + 1, equation.Length - (equation.IndexOf("+") + 1)));  //stores all numbers after operator
-                performArithmeticOperation(userInput, operand1, operand2);
-                return;
-            }
-            else if (equation.Contains("-"))
-            {
-                userInput = equation.Substring(equation.IndexOf("-"), 1);
-                //determine if minus is before number (indicating a negative value), or used as an operator in the equation...only computes if minus is being used as an operator
-                if (equation.IndexOf("-") != 0)
-                {
-                    operand1 = Convert.ToDouble(equation.Substring(0, equation.IndexOf("-"))); //stores all numbers before operator
-                    operand2 = Convert.ToDouble(equation.Substring(equation.IndexOf("-") + 1, equation.Length - (equation.IndexOf("-") + 1)));  //stores all numbers after operator
-                    performArithmeticOperation(userInput, operand1, operand2);
-                    return;
-                }
+            //}
+            //else if (equation.Contains("*"))
+            //{
+            //    /* - This block of commented code helped me think through how to write the uncommented code
+            //    int lazyEquationIndex = equation.IndexOf("*");
+            //    int lazyEquationLength = equation.Length;
+            //    int lazyLength = equation.Length - equation.IndexOf("*");
+            //    int lazyIndexPlusOne = equation.IndexOf("*") + 1;
+            //    string lazyTest = "6*6";
+            //    string lazyResult1 = lazyTest.Substring(0, lazyEquationIndex);
+            //    string lazyResult2 = lazyTest.Substring(lazyIndexPlusOne, lazyEquationLength - lazyIndexPlusOne);
+            //     * */
 
-            }
-            else if (equation.Contains("*"))
-            {
-                /* - This block of commented code helped me think through how to write the uncommented code
-                int lazyEquationIndex = equation.IndexOf("*");
-                int lazyEquationLength = equation.Length;
-                int lazyLength = equation.Length - equation.IndexOf("*");
-                int lazyIndexPlusOne = equation.IndexOf("*") + 1;
-                string lazyTest = "6*6";
-                string lazyResult1 = lazyTest.Substring(0, lazyEquationIndex);
-                string lazyResult2 = lazyTest.Substring(lazyIndexPlusOne, lazyEquationLength - lazyIndexPlusOne);
-                 * */
-
-                userInput = equation.Substring(equation.IndexOf("*"), 1);
-                operand1 = Convert.ToDouble(equation.Substring(0, equation.IndexOf("*"))); //stores all numbers before operator
-                operand2 = Convert.ToDouble(equation.Substring(equation.IndexOf("*") + 1, equation.Length - (equation.IndexOf("*") + 1)));  //stores all numbers after operator
-                performArithmeticOperation(userInput, operand1, operand2);
-                return;
-            }
-            else if (equation.Contains("/"))
-            {
-                userInput = equation.Substring(equation.IndexOf("/"), 1);
-                operand1 = Convert.ToDouble(equation.Substring(0, equation.IndexOf("/"))); //stores all numbers before operator
-                operand2 = Convert.ToDouble(equation.Substring(equation.IndexOf("/") + 1, equation.Length - (equation.IndexOf("/") + 1)));  //stores all numbers after operator
-                performArithmeticOperation(userInput, operand1, operand2);
-                return;
-            }
-            else
-            {
-                return;
-            }
+            //    userInput = equation.Substring(equation.IndexOf("*"), 1);
+            //    operand1 = Convert.ToDouble(equation.Substring(0, equation.IndexOf("*"))); //stores all numbers before operator
+            //    operand2 = Convert.ToDouble(equation.Substring(equation.IndexOf("*") + 1, equation.Length - (equation.IndexOf("*") + 1)));  //stores all numbers after operator
+            //    performArithmeticOperation(userInput, operand1, operand2);
+            //    return;
+            //}
+            //else if (equation.Contains("/"))
+            //{
+            //    userInput = equation.Substring(equation.IndexOf("/"), 1);
+            //    operand1 = Convert.ToDouble(equation.Substring(0, equation.IndexOf("/"))); //stores all numbers before operator
+            //    operand2 = Convert.ToDouble(equation.Substring(equation.IndexOf("/") + 1, equation.Length - (equation.IndexOf("/") + 1)));  //stores all numbers after operator
+            //    performArithmeticOperation(userInput, operand1, operand2);
+            //    return;
+            //}
+            //else
+            //{
+            //    return;
+            //}
 
         }
 
