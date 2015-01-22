@@ -47,6 +47,7 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.txtBoxCalculationDisplay = new System.Windows.Forms.TextBox();
+            this.equationDisplay = new System.Windows.Forms.Label();
             this.groupBoxContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,7 +94,7 @@
             this.groupBoxContainer.Controls.Add(this.button3);
             this.groupBoxContainer.Controls.Add(this.button1);
             this.groupBoxContainer.Controls.Add(this.button2);
-            this.groupBoxContainer.Location = new System.Drawing.Point(16, 81);
+            this.groupBoxContainer.Location = new System.Drawing.Point(16, 107);
             this.groupBoxContainer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBoxContainer.Name = "groupBoxContainer";
             this.groupBoxContainer.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -285,7 +286,7 @@
             // 
             this.txtBoxCalculationDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBoxCalculationDisplay.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtBoxCalculationDisplay.Location = new System.Drawing.Point(16, 14);
+            this.txtBoxCalculationDisplay.Location = new System.Drawing.Point(16, 40);
             this.txtBoxCalculationDisplay.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtBoxCalculationDisplay.Multiline = true;
             this.txtBoxCalculationDisplay.Name = "txtBoxCalculationDisplay";
@@ -294,11 +295,20 @@
             this.txtBoxCalculationDisplay.TabIndex = 3;
             this.txtBoxCalculationDisplay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // equationDisplay
+            // 
+            this.equationDisplay.Location = new System.Drawing.Point(16, 9);
+            this.equationDisplay.Name = "equationDisplay";
+            this.equationDisplay.Size = new System.Drawing.Size(293, 27);
+            this.equationDisplay.TabIndex = 4;
+            this.equationDisplay.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(331, 415);
+            this.ClientSize = new System.Drawing.Size(331, 456);
+            this.Controls.Add(this.equationDisplay);
             this.Controls.Add(this.txtBoxCalculationDisplay);
             this.Controls.Add(this.groupBoxContainer);
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
@@ -331,6 +341,7 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox txtBoxCalculationDisplay;
+        private System.Windows.Forms.Label equationDisplay;
     }
 }
 
