@@ -164,27 +164,9 @@ namespace BasicCalculator
 
         private void buttonSubtract_Click(object sender, EventArgs e)
         {
-            int countOfMinusSigns = 0;
-
-            for (int i = 0; i < txtBoxCalculationDisplay.Text.Length; i++)
-            {
-                if (txtBoxCalculationDisplay.Text.Substring(i,1) == "-")
-                {
-                    countOfMinusSigns = countOfMinusSigns + 1;
-                }
-            }
-
             if (!txtBoxCalculationDisplay.Text.Contains("-"))
             {
                 txtBoxCalculationDisplay.Text = txtBoxCalculationDisplay.Text + "-";
-            }
-            else if (txtBoxCalculationDisplay.Text.Substring(0, 1).Contains("-") && countOfMinusSigns < 2)
-            {
-                txtBoxCalculationDisplay.Text = txtBoxCalculationDisplay.Text + "-";
-            }
-            else if (countOfMinusSigns > 2)
-            {
-                return;
             }
         }
 
