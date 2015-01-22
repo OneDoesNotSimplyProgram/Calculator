@@ -12,7 +12,6 @@ namespace BasicCalculator
     public partial class Form1 : Form
     {
         string userInput;
-        double tempNumber;
         double operand1;
         double operand2;
         string mathOperator;
@@ -88,6 +87,7 @@ namespace BasicCalculator
             operand1 = Double.Parse(userInput);
             userInput = string.Empty;
             mathOperator = buttonAdd.Text;
+            txtBoxCalculationDisplay.Text = string.Empty;
         }
 
         private void buttonSubtract_Click(object sender, EventArgs e)
@@ -95,61 +95,50 @@ namespace BasicCalculator
             operand1 = Double.Parse(userInput);
             userInput = string.Empty;
             mathOperator = buttonSubtract.Text;
-
-            int countOfMinusSigns = 0;
-
-            for (int i = 0; i < txtBoxCalculationDisplay.Text.Length; i++)
-            {
-                if (txtBoxCalculationDisplay.Text.Substring(i, 1) == "-")
-                {
-                    countOfMinusSigns = countOfMinusSigns + 1;
-                }
-            }
-
-            if (!txtBoxCalculationDisplay.Text.Contains("-"))
-            {
-                txtBoxCalculationDisplay.Text = txtBoxCalculationDisplay.Text + "-";
-            }
-            else if (txtBoxCalculationDisplay.Text.Substring(0, 1).Contains("-") && countOfMinusSigns < 2)
-            {
-                txtBoxCalculationDisplay.Text = txtBoxCalculationDisplay.Text + "-";
-            }
-            else if (countOfMinusSigns > 2)
-            {
-                return;
-            }
+            txtBoxCalculationDisplay.Text = string.Empty;
         }
 
         private void buttonMultiply_Click(object sender, EventArgs e)
         {
-            if (!txtBoxCalculationDisplay.Text.Contains("*"))
-            {
-                txtBoxCalculationDisplay.Text = txtBoxCalculationDisplay.Text + "*";
-            }
+            operand1 = Double.Parse(userInput);
+            userInput = string.Empty;
+            mathOperator = buttonMultiply.Text;
+            txtBoxCalculationDisplay.Text = string.Empty;
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
-            txtBoxCalculationDisplay.Text = "";
+            operand1 = 0;
+            operand2 = 0;
+            userInput = string.Empty;
+            mathOperator = string.Empty;
+            calculatedResult = 0;
+            txtBoxCalculationDisplay.Text = string.Empty;
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            //Deletes the last position in TextBox
-            txtBoxCalculationDisplay.Text = txtBoxCalculationDisplay.Text.Remove(txtBoxCalculationDisplay.TextLength - 1);
+            //Deletes the last position in TextBox if there's text in it
+            if (!string.IsNullOrEmpty(txtBoxCalculationDisplay.Text))
+            {
+                txtBoxCalculationDisplay.Text = txtBoxCalculationDisplay.Text.Remove(txtBoxCalculationDisplay.TextLength - 1);
+            }
+
         }
 
         private void buttonDivide_Click(object sender, EventArgs e)
         {
-            if (!txtBoxCalculationDisplay.Text.Contains("/"))
-            {
-                txtBoxCalculationDisplay.Text = txtBoxCalculationDisplay.Text + "/";
-            }
+            operand1 = Double.Parse(userInput);
+            userInput = string.Empty;
+            mathOperator = buttonDivide.Text;
+            txtBoxCalculationDisplay.Text = string.Empty;
         }
 
         private void buttonEquals_Click(object sender, EventArgs e)
         {
 
+
+            //Old code - what the hell was I thinking?  Why am I trying to parse everything out of 1 large string and reconstruct as a math problem...too many variations in potential errors
             string equation = txtBoxCalculationDisplay.Text;
 
             //if string contains an operator, proceed with finding two values to be calculated
