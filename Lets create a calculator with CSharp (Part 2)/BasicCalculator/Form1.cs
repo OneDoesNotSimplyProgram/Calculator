@@ -82,51 +82,83 @@ namespace BasicCalculator
             txtBoxCalculationDisplay.Text += button9.Text;
         }
 
+        //All of the operator buttons basically follow this process:  1) set the first operand, 2) set the operator, 3) show stuff
+        //The equals button is the only event that sets operand2 and then performs the calculation
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            operand1 = Double.Parse(userInput);
-            mathOperator = buttonAdd.Text;
-            txtBoxCalculationDisplay.Text = string.Empty;
-            showEquationAboveCalculationDisplay(userInput);
-        }
-
-        private void showEquationAboveCalculationDisplay(string input)
-        {
-            equationDisplay.Text = input + " " + mathOperator + " ";
-            userInput = string.Empty;
+            if (!string.IsNullOrEmpty(userInput))
+            {
+                operand1 = Double.Parse(userInput);
+                mathOperator = buttonAdd.Text;
+                txtBoxCalculationDisplay.Text = string.Empty;
+                showEquationAboveCalculationDisplay(userInput);
+            }
+            else
+            {
+                return;
+            }
         }
 
         private void buttonSubtract_Click(object sender, EventArgs e)
         {
-            operand1 = Double.Parse(userInput);
-            mathOperator = buttonSubtract.Text;
-            txtBoxCalculationDisplay.Text = string.Empty;
-            showEquationAboveCalculationDisplay(userInput);
+            if (!string.IsNullOrEmpty(userInput))
+            {
+                operand1 = Double.Parse(userInput);
+                mathOperator = buttonSubtract.Text;
+                txtBoxCalculationDisplay.Text = string.Empty;
+                showEquationAboveCalculationDisplay(userInput);
+            }
+            else
+            {
+                return;
+            }
         }
 
         private void buttonMultiply_Click(object sender, EventArgs e)
         {
-            operand1 = Double.Parse(userInput);
-            mathOperator = buttonMultiply.Text;
-            txtBoxCalculationDisplay.Text = string.Empty;
-            showEquationAboveCalculationDisplay(userInput);
+            if (!string.IsNullOrEmpty(userInput))
+            {
+                operand1 = Double.Parse(userInput);
+                mathOperator = buttonMultiply.Text;
+                txtBoxCalculationDisplay.Text = string.Empty;
+                showEquationAboveCalculationDisplay(userInput);
+            }
+            else
+            {
+                return;
+            }
         }
 
         private void buttonDivide_Click(object sender, EventArgs e)
         {
-            operand1 = Double.Parse(userInput);
-            mathOperator = buttonDivide.Text;
-            txtBoxCalculationDisplay.Text = string.Empty;
-            showEquationAboveCalculationDisplay(userInput);
+            if (!string.IsNullOrEmpty(userInput))
+            {
+                operand1 = Double.Parse(userInput);
+                mathOperator = buttonDivide.Text;
+                txtBoxCalculationDisplay.Text = string.Empty;
+                showEquationAboveCalculationDisplay(userInput);
+            }
+            else
+            {
+                return;
+            }
         }
 
         private void buttonEquals_Click(object sender, EventArgs e)
         {
-            operand2 = Double.Parse(userInput);
-            txtBoxCalculationDisplay.Text = string.Empty;
-            performArithmeticOperation(mathOperator, operand1, operand2);
-            userInput = calculatedResult.ToString();
-            equationDisplay.Text += operand2.ToString() + " = " + userInput;
+            if (!string.IsNullOrEmpty(userInput))
+            {
+                operand2 = Double.Parse(userInput);
+                txtBoxCalculationDisplay.Text = string.Empty;
+                performArithmeticOperation(mathOperator, operand1, operand2);
+                userInput = calculatedResult.ToString();
+                //Is the below equationDisplay an appropriate location for this?
+                equationDisplay.Text += operand2.ToString();
+            }
+            else
+            {
+                return;
+            }
         }
 
         private void performArithmeticOperation(string selectedOperator, double number1, double number2)
@@ -150,6 +182,12 @@ namespace BasicCalculator
                     txtBoxCalculationDisplay.Text = Convert.ToString(calculatedResult);
                     break;
             }
+        }
+
+        private void showEquationAboveCalculationDisplay(string input)
+        {
+            equationDisplay.Text = input + " " + mathOperator + " ";
+            userInput = string.Empty;
         }
 
         private void buttonClear_Click(object sender, EventArgs e)
