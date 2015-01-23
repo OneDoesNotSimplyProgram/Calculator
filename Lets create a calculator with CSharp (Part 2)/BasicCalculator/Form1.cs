@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Speech.Synthesis;
 
 namespace BasicCalculator
 {
@@ -209,6 +210,30 @@ namespace BasicCalculator
                 txtBoxCalculationDisplay.Text = txtBoxCalculationDisplay.Text.Remove(txtBoxCalculationDisplay.TextLength - 1);
             }
 
+        }
+
+        private void buttonSpeech_Click(object sender, EventArgs e)
+        {
+            SpeechSynthesizer speekCalculatedResult = new SpeechSynthesizer();
+            speekCalculatedResult.SelectVoiceByHints(VoiceGender.Male);
+            speekCalculatedResult.Rate = -2;
+            speekCalculatedResult.Volume = 100;
+
+            switch (mathOperator)
+            {
+                case "+":
+                    speekCalculatedResult.Speak(operand1 + "plus " + operand2 + "equals " + calculatedResult);
+                    break;
+                case "-":
+                    speekCalculatedResult.Speak(operand1 + "minus " + operand2 + "equals " + calculatedResult);
+                    break;
+                case "*":
+                    speekCalculatedResult.Speak(operand1 + "times " + operand2 + "equals " + calculatedResult);
+                    break;
+                case "/":
+                    speekCalculatedResult.Speak(operand1 + "divided by " + operand2 + "equals " + calculatedResult);
+                    break;
+            }
         }
     }
 }

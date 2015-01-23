@@ -48,6 +48,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.txtBoxCalculationDisplay = new System.Windows.Forms.TextBox();
             this.equationDisplay = new System.Windows.Forms.Label();
+            this.buttonSpeech = new System.Windows.Forms.Button();
             this.groupBoxContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -299,17 +300,28 @@
             // 
             // equationDisplay
             // 
-            this.equationDisplay.Location = new System.Drawing.Point(16, 9);
+            this.equationDisplay.Location = new System.Drawing.Point(105, 9);
             this.equationDisplay.Name = "equationDisplay";
-            this.equationDisplay.Size = new System.Drawing.Size(293, 27);
+            this.equationDisplay.Size = new System.Drawing.Size(204, 27);
             this.equationDisplay.TabIndex = 4;
             this.equationDisplay.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            // 
+            // buttonSpeech
+            // 
+            this.buttonSpeech.Location = new System.Drawing.Point(24, 9);
+            this.buttonSpeech.Name = "buttonSpeech";
+            this.buttonSpeech.Size = new System.Drawing.Size(75, 27);
+            this.buttonSpeech.TabIndex = 5;
+            this.buttonSpeech.Text = "Audio";
+            this.buttonSpeech.UseVisualStyleBackColor = true;
+            this.buttonSpeech.Click += new System.EventHandler(this.buttonSpeech_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(331, 456);
+            this.Controls.Add(this.buttonSpeech);
             this.Controls.Add(this.equationDisplay);
             this.Controls.Add(this.txtBoxCalculationDisplay);
             this.Controls.Add(this.groupBoxContainer);
@@ -344,6 +356,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox txtBoxCalculationDisplay;
         private System.Windows.Forms.Label equationDisplay;
+        private System.Windows.Forms.Button buttonSpeech;
     }
 }
 
