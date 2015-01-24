@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Speech.Synthesis;
+using System.Speech.Recognition;
 
 namespace BasicCalculator
 {
@@ -17,6 +18,7 @@ namespace BasicCalculator
         double operand2;
         string mathOperator;
         double calculatedResult;
+        SpeechRecognitionEngine speechRecognize = new SpeechRecognitionEngine();
 
         public Form1()
         {
@@ -209,30 +211,224 @@ namespace BasicCalculator
             {
                 txtBoxCalculationDisplay.Text = txtBoxCalculationDisplay.Text.Remove(txtBoxCalculationDisplay.TextLength - 1);
             }
-
         }
 
         private void buttonSpeech_Click(object sender, EventArgs e)
         {
-            SpeechSynthesizer speekCalculatedResult = new SpeechSynthesizer();
-            speekCalculatedResult.SelectVoiceByHints(VoiceGender.Male);
-            speekCalculatedResult.Rate = -2;
-            speekCalculatedResult.Volume = 100;
+            SpeechSynthesizer speechSynthesize = new SpeechSynthesizer();
+            speechSynthesize.SelectVoiceByHints(VoiceGender.Male);
+            speechSynthesize.Rate = -2;
+            speechSynthesize.Volume = 100;
 
             switch (mathOperator)
             {
                 case "+":
-                    speekCalculatedResult.Speak(operand1 + "plus " + operand2 + "equals " + calculatedResult);
+                    speechSynthesize.Speak(operand1 + "plus " + operand2 + "equals " + calculatedResult);
                     break;
                 case "-":
-                    speekCalculatedResult.Speak(operand1 + "minus " + operand2 + "equals " + calculatedResult);
+                    speechSynthesize.Speak(operand1 + "minus " + operand2 + "equals " + calculatedResult);
                     break;
                 case "*":
-                    speekCalculatedResult.Speak(operand1 + "times " + operand2 + "equals " + calculatedResult);
+                    speechSynthesize.Speak(operand1 + "times " + operand2 + "equals " + calculatedResult);
                     break;
                 case "/":
-                    speekCalculatedResult.Speak(operand1 + "divided by " + operand2 + "equals " + calculatedResult);
+                    speechSynthesize.Speak(operand1 + "divided by " + operand2 + "equals " + calculatedResult);
                     break;
+            }
+        }
+
+        private void buttonListen_Click(object sender, EventArgs e)
+        {
+            Choices choiceList = new Choices();
+            choiceList.Add(new string[] { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "zero", "times", "multiplied", "divide", "divided by", "minus", "add", "plus", "equals", "delete", "clear", "exit", "speak", "play back" });
+            Grammar stuff = new Grammar(new GrammarBuilder(choiceList));
+
+            try
+            {
+                speechRecognize.RequestRecognizerUpdate();
+                speechRecognize.LoadGrammar(stuff);
+                speechRecognize.SpeechRecognized += speechRecognize_SpeechRecognized;
+                speechRecognize.SetInputToDefaultAudioDevice();
+                speechRecognize.RecognizeAsync(RecognizeMode.Multiple);
+            }
+            catch
+            {
+                return;
+            }
+        }
+
+        private void speechRecognize_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        {
+            if (e.Result.Text == "exit")
+            {
+                Application.Exit();
+            }
+            else if (e.Result.Text == "one")
+            {
+                userInput += button1.Text;
+                txtBoxCalculationDisplay.Text += button1.Text;
+            }
+            else if (e.Result.Text == "two")
+            {
+                userInput += button2.Text;
+                txtBoxCalculationDisplay.Text += button2.Text;
+            }
+            else if (e.Result.Text == "three")
+            {
+                userInput += button3.Text;
+                txtBoxCalculationDisplay.Text += button3.Text;
+            }
+            else if (e.Result.Text == "four")
+            {
+                userInput += button4.Text;
+                txtBoxCalculationDisplay.Text += button4.Text;
+            }
+            else if (e.Result.Text == "five")
+            {
+                userInput += button5.Text;
+                txtBoxCalculationDisplay.Text += button5.Text;
+            }
+            else if (e.Result.Text == "six")
+            {
+                userInput += button6.Text;
+                txtBoxCalculationDisplay.Text += button6.Text;
+            }
+            else if (e.Result.Text == "seven")
+            {
+                userInput += button7.Text;
+                txtBoxCalculationDisplay.Text += button7.Text;
+            }
+            else if (e.Result.Text == "eight")
+            {
+                userInput += button8.Text;
+                txtBoxCalculationDisplay.Text += button8.Text;
+            }
+            else if (e.Result.Text == "nine")
+            {
+                userInput += button9.Text;
+                txtBoxCalculationDisplay.Text += button9.Text;
+            }
+            else if (e.Result.Text == "zero")
+            {
+                userInput += button0.Text;
+                txtBoxCalculationDisplay.Text += button0.Text;
+            }
+            else if (e.Result.Text == "times" || e.Result.Text == "multiplied")
+            {
+                if (!string.IsNullOrEmpty(userInput))
+                {
+                    operand1 = Double.Parse(userInput);
+                    mathOperator = buttonMultiply.Text;
+                    txtBoxCalculationDisplay.Text = string.Empty;
+                    showEquationAboveCalculationDisplay(userInput);
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else if (e.Result.Text == "divide" || e.Result.Text == "divided by" )
+            {
+                if (!string.IsNullOrEmpty(userInput))
+                {
+                    operand1 = Double.Parse(userInput);
+                    mathOperator = buttonDivide.Text;
+                    txtBoxCalculationDisplay.Text = string.Empty;
+                    showEquationAboveCalculationDisplay(userInput);
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else if (e.Result.Text == "minus")
+            {
+                if (!string.IsNullOrEmpty(userInput))
+                {
+                    operand1 = Double.Parse(userInput);
+                    mathOperator = buttonSubtract.Text;
+                    txtBoxCalculationDisplay.Text = string.Empty;
+                    showEquationAboveCalculationDisplay(userInput);
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else if (e.Result.Text == "add" || e.Result.Text == "plus")
+            {
+                if (!string.IsNullOrEmpty(userInput))
+                {
+                    operand1 = Double.Parse(userInput);
+                    mathOperator = buttonAdd.Text;
+                    txtBoxCalculationDisplay.Text = string.Empty;
+                    showEquationAboveCalculationDisplay(userInput);
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else if (e.Result.Text == "equals")
+            {
+                if (!string.IsNullOrEmpty(userInput))
+                {
+                    operand2 = Double.Parse(userInput);
+                    txtBoxCalculationDisplay.Text = string.Empty;
+                    performArithmeticOperation(mathOperator, operand1, operand2);
+                    userInput = calculatedResult.ToString();
+                    //Is the below equationDisplay an appropriate location for this?
+                    equationDisplay.Text += operand2.ToString();
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else if (e.Result.Text == "delete")
+            {
+                //Deletes the last position in TextBox if there's text in it
+                if (!string.IsNullOrEmpty(txtBoxCalculationDisplay.Text))
+                {
+                    txtBoxCalculationDisplay.Text = txtBoxCalculationDisplay.Text.Remove(txtBoxCalculationDisplay.TextLength - 1);
+                }
+            }
+            else if (e.Result.Text == "clear")
+            {
+                operand1 = 0;
+                operand2 = 0;
+                userInput = string.Empty;
+                mathOperator = string.Empty;
+                calculatedResult = 0;
+                txtBoxCalculationDisplay.Text = string.Empty;
+                equationDisplay.Text = string.Empty;
+            }
+            else if (e.Result.Text == "speak" || e.Result.Text == "play back")
+            {
+                SpeechSynthesizer speechSynthesize = new SpeechSynthesizer();
+                speechSynthesize.SelectVoiceByHints(VoiceGender.Male);
+                speechSynthesize.Rate = -2;
+                speechSynthesize.Volume = 100;
+
+                switch (mathOperator)
+                {
+                    case "+":
+                        speechSynthesize.Speak(operand1 + "plus " + operand2 + "equals " + calculatedResult);
+                        break;
+                    case "-":
+                        speechSynthesize.Speak(operand1 + "minus " + operand2 + "equals " + calculatedResult);
+                        break;
+                    case "*":
+                        speechSynthesize.Speak(operand1 + "times " + operand2 + "equals " + calculatedResult);
+                        break;
+                    case "/":
+                        speechSynthesize.Speak(operand1 + "divided by " + operand2 + "equals " + calculatedResult);
+                        break;
+                }
+            }
+            else
+            {
+                labelSpeech.Text = labelSpeech.Text + " " + e.Result.Text.ToString();
             }
         }
     }

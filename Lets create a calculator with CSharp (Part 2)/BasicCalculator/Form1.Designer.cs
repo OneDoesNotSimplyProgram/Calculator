@@ -49,6 +49,8 @@
             this.txtBoxCalculationDisplay = new System.Windows.Forms.TextBox();
             this.equationDisplay = new System.Windows.Forms.Label();
             this.buttonSpeech = new System.Windows.Forms.Button();
+            this.buttonListen = new System.Windows.Forms.Button();
+            this.labelSpeech = new System.Windows.Forms.Label();
             this.groupBoxContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -95,7 +97,7 @@
             this.groupBoxContainer.Controls.Add(this.button3);
             this.groupBoxContainer.Controls.Add(this.button1);
             this.groupBoxContainer.Controls.Add(this.button2);
-            this.groupBoxContainer.Location = new System.Drawing.Point(16, 107);
+            this.groupBoxContainer.Location = new System.Drawing.Point(16, 161);
             this.groupBoxContainer.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxContainer.Name = "groupBoxContainer";
             this.groupBoxContainer.Padding = new System.Windows.Forms.Padding(4);
@@ -288,7 +290,7 @@
             this.txtBoxCalculationDisplay.BackColor = System.Drawing.SystemColors.Window;
             this.txtBoxCalculationDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBoxCalculationDisplay.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtBoxCalculationDisplay.Location = new System.Drawing.Point(16, 40);
+            this.txtBoxCalculationDisplay.Location = new System.Drawing.Point(16, 94);
             this.txtBoxCalculationDisplay.Margin = new System.Windows.Forms.Padding(4);
             this.txtBoxCalculationDisplay.Multiline = true;
             this.txtBoxCalculationDisplay.Name = "txtBoxCalculationDisplay";
@@ -300,7 +302,7 @@
             // 
             // equationDisplay
             // 
-            this.equationDisplay.Location = new System.Drawing.Point(105, 9);
+            this.equationDisplay.Location = new System.Drawing.Point(105, 63);
             this.equationDisplay.Name = "equationDisplay";
             this.equationDisplay.Size = new System.Drawing.Size(204, 27);
             this.equationDisplay.TabIndex = 4;
@@ -308,26 +310,46 @@
             // 
             // buttonSpeech
             // 
-            this.buttonSpeech.Location = new System.Drawing.Point(24, 9);
+            this.buttonSpeech.Location = new System.Drawing.Point(16, 12);
             this.buttonSpeech.Name = "buttonSpeech";
             this.buttonSpeech.Size = new System.Drawing.Size(75, 27);
             this.buttonSpeech.TabIndex = 5;
-            this.buttonSpeech.Text = "Audio";
+            this.buttonSpeech.Text = "Speak";
             this.buttonSpeech.UseVisualStyleBackColor = true;
             this.buttonSpeech.Click += new System.EventHandler(this.buttonSpeech_Click);
+            // 
+            // buttonListen
+            // 
+            this.buttonListen.Location = new System.Drawing.Point(16, 45);
+            this.buttonListen.Name = "buttonListen";
+            this.buttonListen.Size = new System.Drawing.Size(75, 27);
+            this.buttonListen.TabIndex = 6;
+            this.buttonListen.Text = "Listen";
+            this.buttonListen.UseVisualStyleBackColor = true;
+            this.buttonListen.Click += new System.EventHandler(this.buttonListen_Click);
+            // 
+            // labelSpeech
+            // 
+            this.labelSpeech.Location = new System.Drawing.Point(105, 26);
+            this.labelSpeech.Name = "labelSpeech";
+            this.labelSpeech.Size = new System.Drawing.Size(204, 27);
+            this.labelSpeech.TabIndex = 7;
+            this.labelSpeech.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(331, 456);
+            this.ClientSize = new System.Drawing.Size(331, 501);
+            this.Controls.Add(this.labelSpeech);
+            this.Controls.Add(this.buttonListen);
             this.Controls.Add(this.buttonSpeech);
             this.Controls.Add(this.equationDisplay);
             this.Controls.Add(this.txtBoxCalculationDisplay);
             this.Controls.Add(this.groupBoxContainer);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
-            this.Text = "Cheap Calculator";
+            this.Text = "Simple Calculator";
             this.groupBoxContainer.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -357,6 +379,8 @@
         private System.Windows.Forms.TextBox txtBoxCalculationDisplay;
         private System.Windows.Forms.Label equationDisplay;
         private System.Windows.Forms.Button buttonSpeech;
+        private System.Windows.Forms.Button buttonListen;
+        private System.Windows.Forms.Label labelSpeech;
     }
 }
 
