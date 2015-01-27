@@ -18,8 +18,11 @@ namespace BasicCalculator
         double operand2;
         string mathOperator;
         double calculatedResult;
-        SpeechRecognitionEngine speechRecognize = new SpeechRecognitionEngine();
 
+        //TODO:  add string formats
+        //TODO:  set form window as fixed
+        //TODO:  look in to asynchronous synthesizer and threading for improved performance
+        //TODO:  add keypad number input as a feature
         public Form1()
         {
             InitializeComponent();
@@ -154,9 +157,10 @@ namespace BasicCalculator
                 operand2 = Double.Parse(userInput);
                 txtBoxCalculationDisplay.Text = string.Empty;
                 performArithmeticOperation(mathOperator, operand1, operand2);
+                // TODO:  Determine if userInput is needed given the above performArithmeticOperation method and calculatedResult variable.
                 userInput = calculatedResult.ToString();
-                //Is the below equationDisplay an appropriate location for this?
-                equationDisplay.Text += operand2.ToString();
+                // TODO:  Determine if location of code for below label_equationDisplay.text is in a logical place, or should be used, given the 'showEquationAboveCalculationDisplay' method
+                label_equationDisplay.Text += operand2.ToString();
             }
             else
             {
@@ -189,7 +193,7 @@ namespace BasicCalculator
 
         private void showEquationAboveCalculationDisplay(string input)
         {
-            equationDisplay.Text = input + " " + mathOperator + " ";
+            label_equationDisplay.Text = input + " " + mathOperator + " ";
             userInput = string.Empty;
         }
 
@@ -201,7 +205,7 @@ namespace BasicCalculator
             mathOperator = string.Empty;
             calculatedResult = 0;
             txtBoxCalculationDisplay.Text = string.Empty;
-            equationDisplay.Text = string.Empty;
+            label_equationDisplay.Text = string.Empty;
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -237,16 +241,18 @@ namespace BasicCalculator
             }
         }
 
+        //TODO:  Determine design option for enhanced number dictionary (e.g. "one hundred", "one hundred and one", "five hundred and fifty three thousand, four hundred and twenty two")
         private void buttonListen_Click(object sender, EventArgs e)
         {
+            SpeechRecognitionEngine speechRecognize = new SpeechRecognitionEngine();
             Choices choiceList = new Choices();
             choiceList.Add(new string[] { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "zero", "times", "multiplied", "divide", "divided by", "minus", "add", "plus", "equals", "delete", "clear", "exit", "speak", "play back" });
-            Grammar stuff = new Grammar(new GrammarBuilder(choiceList));
+            Grammar calculatorGrammer = new Grammar(new GrammarBuilder(choiceList));
 
             try
             {
                 speechRecognize.RequestRecognizerUpdate();
-                speechRecognize.LoadGrammar(stuff);
+                speechRecognize.LoadGrammar(calculatorGrammer);
                 speechRecognize.SpeechRecognized += speechRecognize_SpeechRecognized;
                 speechRecognize.SetInputToDefaultAudioDevice();
                 speechRecognize.RecognizeAsync(RecognizeMode.Multiple);
@@ -378,7 +384,7 @@ namespace BasicCalculator
                     performArithmeticOperation(mathOperator, operand1, operand2);
                     userInput = calculatedResult.ToString();
                     //Is the below equationDisplay an appropriate location for this?
-                    equationDisplay.Text += operand2.ToString();
+                    label_equationDisplay.Text += operand2.ToString();
                 }
                 else
                 {
@@ -401,7 +407,7 @@ namespace BasicCalculator
                 mathOperator = string.Empty;
                 calculatedResult = 0;
                 txtBoxCalculationDisplay.Text = string.Empty;
-                equationDisplay.Text = string.Empty;
+                label_equationDisplay.Text = string.Empty;
             }
             else if (e.Result.Text == "speak" || e.Result.Text == "play back")
             {

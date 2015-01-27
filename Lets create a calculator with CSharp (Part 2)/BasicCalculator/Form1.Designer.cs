@@ -47,7 +47,7 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.txtBoxCalculationDisplay = new System.Windows.Forms.TextBox();
-            this.equationDisplay = new System.Windows.Forms.Label();
+            this.label_equationDisplay = new System.Windows.Forms.Label();
             this.buttonSpeech = new System.Windows.Forms.Button();
             this.buttonListen = new System.Windows.Forms.Button();
             this.labelSpeech = new System.Windows.Forms.Label();
@@ -300,13 +300,13 @@
             this.txtBoxCalculationDisplay.TabIndex = 3;
             this.txtBoxCalculationDisplay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // equationDisplay
+            // label_equationDisplay
             // 
-            this.equationDisplay.Location = new System.Drawing.Point(105, 63);
-            this.equationDisplay.Name = "equationDisplay";
-            this.equationDisplay.Size = new System.Drawing.Size(204, 27);
-            this.equationDisplay.TabIndex = 4;
-            this.equationDisplay.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.label_equationDisplay.Location = new System.Drawing.Point(105, 63);
+            this.label_equationDisplay.Name = "label_equationDisplay";
+            this.label_equationDisplay.Size = new System.Drawing.Size(204, 27);
+            this.label_equationDisplay.TabIndex = 4;
+            this.label_equationDisplay.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // buttonSpeech
             // 
@@ -344,7 +344,7 @@
             this.Controls.Add(this.labelSpeech);
             this.Controls.Add(this.buttonListen);
             this.Controls.Add(this.buttonSpeech);
-            this.Controls.Add(this.equationDisplay);
+            this.Controls.Add(this.label_equationDisplay);
             this.Controls.Add(this.txtBoxCalculationDisplay);
             this.Controls.Add(this.groupBoxContainer);
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -377,7 +377,7 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox txtBoxCalculationDisplay;
-        private System.Windows.Forms.Label equationDisplay;
+        private System.Windows.Forms.Label label_equationDisplay;
         private System.Windows.Forms.Button buttonSpeech;
         private System.Windows.Forms.Button buttonListen;
         private System.Windows.Forms.Label labelSpeech;
