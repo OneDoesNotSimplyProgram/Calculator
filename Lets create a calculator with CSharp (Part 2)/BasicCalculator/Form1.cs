@@ -19,15 +19,15 @@ namespace BasicCalculator
         string mathOperator;
         double calculatedResult;
 
-        //TODO:  add string formats
-        //TODO:  set form window as fixed
         //TODO:  look in to asynchronous synthesizer and threading for improved performance
         //TODO:  add keypad number input as a feature
+
         public Form1()
         {
             InitializeComponent();
         }
 
+        //TODO:  Decide if the txtBox should show number formatting
         private void button0_Click(object sender, EventArgs e)
         {
             userInput += button0.Text;
@@ -97,7 +97,7 @@ namespace BasicCalculator
                 operand1 = Double.Parse(userInput);
                 mathOperator = buttonAdd.Text;
                 txtBoxCalculationDisplay.Text = string.Empty;
-                showEquationAboveCalculationDisplay(userInput);
+                showEquationAboveCalculationDisplay(operand1);
             }
             else
             {
@@ -112,7 +112,7 @@ namespace BasicCalculator
                 operand1 = Double.Parse(userInput);
                 mathOperator = buttonSubtract.Text;
                 txtBoxCalculationDisplay.Text = string.Empty;
-                showEquationAboveCalculationDisplay(userInput);
+                showEquationAboveCalculationDisplay(operand1);
             }
             else
             {
@@ -127,7 +127,7 @@ namespace BasicCalculator
                 operand1 = Double.Parse(userInput);
                 mathOperator = buttonMultiply.Text;
                 txtBoxCalculationDisplay.Text = string.Empty;
-                showEquationAboveCalculationDisplay(userInput);
+                showEquationAboveCalculationDisplay(operand1);
             }
             else
             {
@@ -142,7 +142,7 @@ namespace BasicCalculator
                 operand1 = Double.Parse(userInput);
                 mathOperator = buttonDivide.Text;
                 txtBoxCalculationDisplay.Text = string.Empty;
-                showEquationAboveCalculationDisplay(userInput);
+                showEquationAboveCalculationDisplay(operand1);
             }
             else
             {
@@ -160,7 +160,7 @@ namespace BasicCalculator
                 // TODO:  Determine if userInput is needed given the above performArithmeticOperation method and calculatedResult variable.
                 userInput = calculatedResult.ToString();
                 // TODO:  Determine if location of code for below label_equationDisplay.text is in a logical place, or should be used, given the 'showEquationAboveCalculationDisplay' method
-                label_equationDisplay.Text += operand2.ToString();
+                label_equationDisplay.Text += operand2.ToString("N");
             }
             else
             {
@@ -191,9 +191,10 @@ namespace BasicCalculator
             }
         }
 
-        private void showEquationAboveCalculationDisplay(string input)
+        private void showEquationAboveCalculationDisplay(double input)
         {
-            label_equationDisplay.Text = input + " " + mathOperator + " ";
+            //TODO:  Figure out string format conditions in a more elegant way (e.g. 66,000 shouldn't display as 66,000.00.  Decimal values should only appear if the decimal is meaningful)
+            label_equationDisplay.Text = input.ToString("N") +" " + mathOperator + " ";
             userInput = string.Empty;
         }
 
@@ -246,6 +247,7 @@ namespace BasicCalculator
         {
             SpeechRecognitionEngine speechRecognize = new SpeechRecognitionEngine();
             Choices choiceList = new Choices();
+            //TODO:  Determine if an array is most appropriate here.  Consider a list?
             choiceList.Add(new string[] { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "zero", "times", "multiplied", "divide", "divided by", "minus", "add", "plus", "equals", "delete", "clear", "exit", "speak", "play back" });
             Grammar calculatorGrammer = new Grammar(new GrammarBuilder(choiceList));
 
@@ -326,7 +328,7 @@ namespace BasicCalculator
                     operand1 = Double.Parse(userInput);
                     mathOperator = buttonMultiply.Text;
                     txtBoxCalculationDisplay.Text = string.Empty;
-                    showEquationAboveCalculationDisplay(userInput);
+                    showEquationAboveCalculationDisplay(operand1);
                 }
                 else
                 {
@@ -340,7 +342,7 @@ namespace BasicCalculator
                     operand1 = Double.Parse(userInput);
                     mathOperator = buttonDivide.Text;
                     txtBoxCalculationDisplay.Text = string.Empty;
-                    showEquationAboveCalculationDisplay(userInput);
+                    showEquationAboveCalculationDisplay(operand1);
                 }
                 else
                 {
@@ -354,7 +356,7 @@ namespace BasicCalculator
                     operand1 = Double.Parse(userInput);
                     mathOperator = buttonSubtract.Text;
                     txtBoxCalculationDisplay.Text = string.Empty;
-                    showEquationAboveCalculationDisplay(userInput);
+                    showEquationAboveCalculationDisplay(operand1);
                 }
                 else
                 {
@@ -368,7 +370,7 @@ namespace BasicCalculator
                     operand1 = Double.Parse(userInput);
                     mathOperator = buttonAdd.Text;
                     txtBoxCalculationDisplay.Text = string.Empty;
-                    showEquationAboveCalculationDisplay(userInput);
+                    showEquationAboveCalculationDisplay(operand1);
                 }
                 else
                 {
@@ -384,7 +386,7 @@ namespace BasicCalculator
                     performArithmeticOperation(mathOperator, operand1, operand2);
                     userInput = calculatedResult.ToString();
                     //Is the below equationDisplay an appropriate location for this?
-                    label_equationDisplay.Text += operand2.ToString();
+                    label_equationDisplay.Text += operand2.ToString("N");
                 }
                 else
                 {

@@ -347,7 +347,9 @@
             this.Controls.Add(this.label_equationDisplay);
             this.Controls.Add(this.txtBoxCalculationDisplay);
             this.Controls.Add(this.groupBoxContainer);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Simple Calculator";
             this.groupBoxContainer.ResumeLayout(false);
