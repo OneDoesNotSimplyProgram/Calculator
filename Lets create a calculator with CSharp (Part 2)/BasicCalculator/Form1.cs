@@ -20,72 +20,89 @@ namespace BasicCalculator
         double calculatedResult;
 
         //TODO:  look in to asynchronous synthesizer and threading for improved performance
-        //TODO:  add keypad number input as a feature
 
         public Form1()
         {
             InitializeComponent();
         }
 
-        //TODO:  Decide if the txtBox should show number formatting
+        private void removeButtonFocus()
+        {
+            //TODO:  Figure out if there's a better way to handle button focus while trying to maintain 'Enter' key as same behavior as equals key
+            //Need this method to remove the button focus, otherwise whenever the user
+            //clicks a button and hits 'enter' to calculate, it just inputs that numbers again
+            //instead of performing the calculation.
+            this.ActiveControl = label_equationDisplay;
+        }
+
         private void button0_Click(object sender, EventArgs e)
         {
             userInput += button0.Text;
             txtBoxCalculationDisplay.Text += button0.Text;
+            removeButtonFocus();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             userInput += button1.Text;
             txtBoxCalculationDisplay.Text += button1.Text;
+            removeButtonFocus();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             userInput += button2.Text;
             txtBoxCalculationDisplay.Text += button2.Text;
+            removeButtonFocus();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             userInput += button3.Text;
             txtBoxCalculationDisplay.Text += button3.Text;
+            removeButtonFocus();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             userInput += button4.Text;
             txtBoxCalculationDisplay.Text += button4.Text;
+            removeButtonFocus();
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
             userInput += button5.Text;
             txtBoxCalculationDisplay.Text += button5.Text;
+            removeButtonFocus();
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
             userInput += button6.Text;
             txtBoxCalculationDisplay.Text += button6.Text;
+            removeButtonFocus();
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
             userInput += button7.Text;
             txtBoxCalculationDisplay.Text += button7.Text;
+            removeButtonFocus();
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
             userInput += button8.Text;
             txtBoxCalculationDisplay.Text += button8.Text;
+            removeButtonFocus();
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
             userInput += button9.Text;
             txtBoxCalculationDisplay.Text += button9.Text;
+            removeButtonFocus();
         }
 
         //All of the operator buttons basically follow this process:  1) set the first operand, 2) set the operator, 3) show stuff
@@ -103,6 +120,7 @@ namespace BasicCalculator
             {
                 return;
             }
+            removeButtonFocus();
         }
 
         private void buttonSubtract_Click(object sender, EventArgs e)
@@ -118,6 +136,7 @@ namespace BasicCalculator
             {
                 return;
             }
+            removeButtonFocus();
         }
 
         private void buttonMultiply_Click(object sender, EventArgs e)
@@ -133,6 +152,7 @@ namespace BasicCalculator
             {
                 return;
             }
+            removeButtonFocus();
         }
 
         private void buttonDivide_Click(object sender, EventArgs e)
@@ -148,6 +168,7 @@ namespace BasicCalculator
             {
                 return;
             }
+            removeButtonFocus();
         }
 
         private void buttonEquals_Click(object sender, EventArgs e)
@@ -159,13 +180,13 @@ namespace BasicCalculator
                 performArithmeticOperation(mathOperator, operand1, operand2);
                 // TODO:  Determine if userInput is needed given the above performArithmeticOperation method and calculatedResult variable.
                 userInput = calculatedResult.ToString();
-                // TODO:  Determine if location of code for below label_equationDisplay.text is in a logical place, or should be used, given the 'showEquationAboveCalculationDisplay' method
-                label_equationDisplay.Text += operand2.ToString("N");
+                label_equationDisplay.Text += operand2.ToString();
             }
             else
             {
                 return;
             }
+            removeButtonFocus();
         }
 
         private void performArithmeticOperation(string selectedOperator, double number1, double number2)
@@ -193,8 +214,7 @@ namespace BasicCalculator
 
         private void showEquationAboveCalculationDisplay(double input)
         {
-            //TODO:  Figure out string format conditions in a more elegant way (e.g. 66,000 shouldn't display as 66,000.00.  Decimal values should only appear if the decimal is meaningful)
-            label_equationDisplay.Text = input.ToString("N") +" " + mathOperator + " ";
+            label_equationDisplay.Text = input.ToString() +" " + mathOperator + " ";
             userInput = string.Empty;
         }
 
@@ -207,6 +227,7 @@ namespace BasicCalculator
             calculatedResult = 0;
             txtBoxCalculationDisplay.Text = string.Empty;
             label_equationDisplay.Text = string.Empty;
+            removeButtonFocus();
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -216,10 +237,12 @@ namespace BasicCalculator
             {
                 txtBoxCalculationDisplay.Text = txtBoxCalculationDisplay.Text.Remove(txtBoxCalculationDisplay.TextLength - 1);
             }
+            removeButtonFocus();
         }
 
         private void buttonSpeech_Click(object sender, EventArgs e)
         {
+            //TODO:  Figure out why speechSynthesize says some numbers weird.  E.g. "five thousand five hundred and eighty four" vs "fifty five eighty four"
             SpeechSynthesizer speechSynthesize = new SpeechSynthesizer();
             speechSynthesize.SelectVoiceByHints(VoiceGender.Male);
             speechSynthesize.Rate = -2;
@@ -240,6 +263,7 @@ namespace BasicCalculator
                     speechSynthesize.Speak(operand1 + "divided by " + operand2 + "equals " + calculatedResult);
                     break;
             }
+            removeButtonFocus();
         }
 
         //TODO:  Determine design option for enhanced number dictionary (e.g. "one hundred", "one hundred and one", "five hundred and fifty three thousand, four hundred and twenty two")
@@ -251,6 +275,7 @@ namespace BasicCalculator
             choiceList.Add(new string[] { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "zero", "times", "multiplied", "divide", "divided by", "minus", "add", "plus", "equals", "delete", "clear", "exit", "speak", "play back" });
             Grammar calculatorGrammer = new Grammar(new GrammarBuilder(choiceList));
 
+            //TODO:  Make the try/catch/finally portion more meaningful
             try
             {
                 speechRecognize.RequestRecognizerUpdate();
@@ -263,6 +288,7 @@ namespace BasicCalculator
             {
                 return;
             }
+            removeButtonFocus();
         }
 
         private void speechRecognize_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
@@ -273,62 +299,51 @@ namespace BasicCalculator
             }
             else if (e.Result.Text == "one")
             {
-                userInput += button1.Text;
-                txtBoxCalculationDisplay.Text += button1.Text;
+                button1.PerformClick();
             }
             else if (e.Result.Text == "two")
             {
-                userInput += button2.Text;
-                txtBoxCalculationDisplay.Text += button2.Text;
+                button2.PerformClick();
             }
             else if (e.Result.Text == "three")
             {
-                userInput += button3.Text;
-                txtBoxCalculationDisplay.Text += button3.Text;
+                button3.PerformClick();
             }
             else if (e.Result.Text == "four")
             {
-                userInput += button4.Text;
-                txtBoxCalculationDisplay.Text += button4.Text;
+                button4.PerformClick();
             }
             else if (e.Result.Text == "five")
             {
                 userInput += button5.Text;
                 txtBoxCalculationDisplay.Text += button5.Text;
+                removeButtonFocus();
             }
             else if (e.Result.Text == "six")
             {
-                userInput += button6.Text;
-                txtBoxCalculationDisplay.Text += button6.Text;
+                button6.PerformClick();
             }
             else if (e.Result.Text == "seven")
             {
-                userInput += button7.Text;
-                txtBoxCalculationDisplay.Text += button7.Text;
+                button7.PerformClick();
             }
             else if (e.Result.Text == "eight")
             {
-                userInput += button8.Text;
-                txtBoxCalculationDisplay.Text += button8.Text;
+                button8.PerformClick();
             }
             else if (e.Result.Text == "nine")
             {
-                userInput += button9.Text;
-                txtBoxCalculationDisplay.Text += button9.Text;
+                button9.PerformClick();
             }
             else if (e.Result.Text == "zero")
             {
-                userInput += button0.Text;
-                txtBoxCalculationDisplay.Text += button0.Text;
+                button0.PerformClick();
             }
             else if (e.Result.Text == "times" || e.Result.Text == "multiplied")
             {
                 if (!string.IsNullOrEmpty(userInput))
                 {
-                    operand1 = Double.Parse(userInput);
-                    mathOperator = buttonMultiply.Text;
-                    txtBoxCalculationDisplay.Text = string.Empty;
-                    showEquationAboveCalculationDisplay(operand1);
+                    buttonMultiply.PerformClick();
                 }
                 else
                 {
@@ -339,10 +354,7 @@ namespace BasicCalculator
             {
                 if (!string.IsNullOrEmpty(userInput))
                 {
-                    operand1 = Double.Parse(userInput);
-                    mathOperator = buttonDivide.Text;
-                    txtBoxCalculationDisplay.Text = string.Empty;
-                    showEquationAboveCalculationDisplay(operand1);
+                    buttonDivide.PerformClick();
                 }
                 else
                 {
@@ -353,10 +365,7 @@ namespace BasicCalculator
             {
                 if (!string.IsNullOrEmpty(userInput))
                 {
-                    operand1 = Double.Parse(userInput);
-                    mathOperator = buttonSubtract.Text;
-                    txtBoxCalculationDisplay.Text = string.Empty;
-                    showEquationAboveCalculationDisplay(operand1);
+                    buttonSubtract.PerformClick();
                 }
                 else
                 {
@@ -367,10 +376,7 @@ namespace BasicCalculator
             {
                 if (!string.IsNullOrEmpty(userInput))
                 {
-                    operand1 = Double.Parse(userInput);
-                    mathOperator = buttonAdd.Text;
-                    txtBoxCalculationDisplay.Text = string.Empty;
-                    showEquationAboveCalculationDisplay(operand1);
+                    buttonAdd.PerformClick();
                 }
                 else
                 {
@@ -381,12 +387,7 @@ namespace BasicCalculator
             {
                 if (!string.IsNullOrEmpty(userInput))
                 {
-                    operand2 = Double.Parse(userInput);
-                    txtBoxCalculationDisplay.Text = string.Empty;
-                    performArithmeticOperation(mathOperator, operand1, operand2);
-                    userInput = calculatedResult.ToString();
-                    //Is the below equationDisplay an appropriate location for this?
-                    label_equationDisplay.Text += operand2.ToString("N");
+                    buttonEquals.PerformClick();
                 }
                 else
                 {
@@ -403,13 +404,7 @@ namespace BasicCalculator
             }
             else if (e.Result.Text == "clear")
             {
-                operand1 = 0;
-                operand2 = 0;
-                userInput = string.Empty;
-                mathOperator = string.Empty;
-                calculatedResult = 0;
-                txtBoxCalculationDisplay.Text = string.Empty;
-                label_equationDisplay.Text = string.Empty;
+                buttonClear.PerformClick();
             }
             else if (e.Result.Text == "speak" || e.Result.Text == "play back")
             {
@@ -437,6 +432,72 @@ namespace BasicCalculator
             else
             {
                 labelSpeech.Text = labelSpeech.Text + " " + e.Result.Text.ToString();
+            }
+        }
+
+        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //TODO:  Add KeyChar for 'Delete' key
+            //TODO:  Decide if this should be a switch statement
+            if (e.KeyChar == 48)
+            {
+                button0.PerformClick();
+            }
+            else if (e.KeyChar == 49)
+            {
+                button1.PerformClick();
+            }
+            else if (e.KeyChar == 50)
+            {
+                button2.PerformClick();
+            }
+            else if (e.KeyChar == 51)
+            {
+                button3.PerformClick();
+            }
+            else if (e.KeyChar == 52)
+            {
+                button4.PerformClick();
+            }
+            else if (e.KeyChar == 53)
+            {
+                button5.PerformClick();
+            }
+            else if (e.KeyChar == 54)
+            {
+                button6.PerformClick();
+            }
+            else if (e.KeyChar == 55)
+            {
+                button7.PerformClick();
+            }
+            else if (e.KeyChar == 56)
+            {
+                button8.PerformClick();
+            }
+            else if (e.KeyChar == 57)
+            {
+                button9.PerformClick();
+            }
+            else if (e.KeyChar == 43)
+            {
+                buttonAdd.PerformClick();
+            }
+            else if (e.KeyChar == 45)
+            {
+                buttonSubtract.PerformClick();
+            }
+            else if (e.KeyChar == 42)
+            {
+                buttonMultiply.PerformClick();
+            }
+            else if (e.KeyChar == 47)
+            {
+                buttonDivide.PerformClick();
+            }
+            else if (e.KeyChar == 61 || e.KeyChar == 13)
+            {
+                buttonEquals.PerformClick();
             }
         }
     }
