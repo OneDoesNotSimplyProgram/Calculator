@@ -19,7 +19,8 @@ namespace BasicCalculator
         string mathOperator;
         double calculatedResult;
 
-        //TODO:  look in to asynchronous synthesizer and threading for improved performance
+        //TODO:  look in to asynchronous synthesizer and threading for improved performance (currently, calculator locks up when speaking)
+        //TODO:  figure out how voice recognition can handle many words or entire sentences rather than just 0-9 and the operators/clear/delete
 
         public Form1()
         {
@@ -30,8 +31,8 @@ namespace BasicCalculator
         {
             //TODO:  Figure out if there's a better way to handle button focus while trying to maintain 'Enter' key as same behavior as equals key
             //Need this method to remove the button focus, otherwise whenever the user
-            //clicks a button and hits 'enter' to calculate, it just inputs that numbers again
-            //instead of performing the calculation.
+            //clicks a button and hits 'enter' to calculate, it just inputs the 'focused' number button
+            //instead of performing the calculation via 'enter' or 'equals'.
             this.ActiveControl = label_equationDisplay;
         }
 
@@ -105,7 +106,7 @@ namespace BasicCalculator
             removeButtonFocus();
         }
 
-        //All of the operator buttons basically follow this process:  1) set the first operand, 2) set the operator, 3) show stuff
+        //All of the operator buttons basically follow this process:  1) set the first operand, 2) set the operator, 3) show #1 and #2 above textbox
         //The equals button is the only event that sets operand2 and then performs the calculation
         private void buttonAdd_Click(object sender, EventArgs e)
         {
@@ -502,4 +503,3 @@ namespace BasicCalculator
         }
     }
 }
-
