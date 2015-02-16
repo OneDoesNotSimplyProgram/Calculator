@@ -21,6 +21,7 @@ namespace BasicCalculator
 
         //TODO:  look in to asynchronous synthesizer and threading for improved performance (currently, calculator locks up when speaking)
         //TODO:  figure out how voice recognition can handle many words or entire sentences rather than just 0-9 and the operators/clear/delete
+        //TODO:  Create some fancy UI
 
         public Form1()
         {
@@ -30,9 +31,10 @@ namespace BasicCalculator
         private void removeButtonFocus()
         {
             //TODO:  Figure out if there's a better way to handle button focus while trying to maintain 'Enter' key as same behavior as equals key
-            //Need this method to remove the button focus, otherwise whenever the user
-            //clicks a button and hits 'enter' to calculate, it just inputs the 'focused' number button
-            //instead of performing the calculation via 'enter' or 'equals'.
+            
+            /* Need this method to remove the button focus, otherwise whenever the user
+            clicks a button and hits 'enter' to calculate, it just inputs the 'focused' number button
+            instead of performing the calculation via 'enter' or 'equals'.*/
             this.ActiveControl = label_equationDisplay;
         }
 
