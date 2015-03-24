@@ -22,6 +22,7 @@ namespace BasicCalculator
         //TODO:  look in to asynchronous synthesizer and threading for improved performance (currently, calculator locks up when speaking)
         //TODO:  figure out how voice recognition can handle many words or entire sentences rather than just 0-9 and the operators/clear/delete
         //TODO:  Create some fancy UI
+        //TODO:  figure out fix for the 'listen' feature to not 'listen' to it's own output through the speaker - probably need to make the 'listen' feature stop when it's speaking back the text (look into RecognizeAsyncStop method)
 
         public Form1()
         {
@@ -245,7 +246,6 @@ namespace BasicCalculator
 
         private void buttonSpeech_Click(object sender, EventArgs e)
         {
-            //TODO:  Figure out why speechSynthesize says some numbers weird.  E.g. "five thousand five hundred and eighty four" vs "fifty five eighty four"
             SpeechSynthesizer speechSynthesize = new SpeechSynthesizer();
             speechSynthesize.SelectVoiceByHints(VoiceGender.Male);
             speechSynthesize.Rate = -2;
@@ -273,16 +273,33 @@ namespace BasicCalculator
         private void buttonListen_Click(object sender, EventArgs e)
         {
             SpeechRecognitionEngine speechRecognize = new SpeechRecognitionEngine();
-            Choices choiceList = new Choices();
-            //TODO:  Determine if an array is most appropriate here.  Consider a list?
-            choiceList.Add(new string[] { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "zero", "times", "multiplied", "divide", "divided by", "minus", "add", "plus", "equals", "delete", "clear", "exit", "speak", "play back" });
-            Grammar calculatorGrammer = new Grammar(new GrammarBuilder(choiceList));
+
+            Choices ones = new Choices();
+            //Choices tensAndTeens = new Choices();
+            //Choices moreTens = new Choices();
+            Choices operators = new Choices();
+            Choices actions = new Choices();
+            ones.Add(new string[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" });
+            //tensAndTeens.Add(new string[] { "ten", "eleven", "twelve", "thirteen", "forteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" });
+            //moreTens.Add(new string[] { "hundred", "thousand", "million", "billion", "trillion", "quadrillion" });
+            operators.Add(new string[] { "times", "multiplied", "divide", "divided by", "minus", "add", "plus", "equals"});
+            actions.Add(new string[] {"delete", "clear", "exit", "speak", "play back"});
+            
+            Grammar calculatorGrammarOnes = new Grammar(new GrammarBuilder(ones));
+            //Grammar calculatorGrammerTens = new Grammar(new GrammarBuilder(tensAndTeens));
+            //Grammar calculatorGrammerMoreTens = new Grammar(new GrammarBuilder(moreTens));
+            Grammar calculatorGrammarOperators = new Grammar(new GrammarBuilder(operators));
+            Grammar calculatorGrammarActions = new Grammar(new GrammarBuilder(actions));
 
             //TODO:  Make the try/catch/finally portion more meaningful
             try
             {
                 speechRecognize.RequestRecognizerUpdate();
-                speechRecognize.LoadGrammar(calculatorGrammer);
+                speechRecognize.LoadGrammar(calculatorGrammarOnes);
+                //speechRecognize.LoadGrammar(calculatorGrammerTens);
+                //speechRecognize.LoadGrammar(calculatorGrammerMoreTens);
+                speechRecognize.LoadGrammar(calculatorGrammarOperators);
+                speechRecognize.LoadGrammar(calculatorGrammarActions);
                 speechRecognize.SpeechRecognized += speechRecognize_SpeechRecognized;
                 speechRecognize.SetInputToDefaultAudioDevice();
                 speechRecognize.RecognizeAsync(RecognizeMode.Multiple);
@@ -296,6 +313,7 @@ namespace BasicCalculator
 
         private void speechRecognize_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
+            //TODO:  change this code to switch statements
             if (e.Result.Text == "exit")
             {
                 Application.Exit();
@@ -318,9 +336,7 @@ namespace BasicCalculator
             }
             else if (e.Result.Text == "five")
             {
-                userInput += button5.Text;
-                txtBoxCalculationDisplay.Text += button5.Text;
-                removeButtonFocus();
+                button5.PerformClick();
             }
             else if (e.Result.Text == "six")
             {
@@ -412,6 +428,7 @@ namespace BasicCalculator
             else if (e.Result.Text == "speak" || e.Result.Text == "play back")
             {
                 SpeechSynthesizer speechSynthesize = new SpeechSynthesizer();
+                //TODO:  Figure out why output is in female voice instead of male
                 speechSynthesize.SelectVoiceByHints(VoiceGender.Male);
                 speechSynthesize.Rate = -2;
                 speechSynthesize.Volume = 100;
